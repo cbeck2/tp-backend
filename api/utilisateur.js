@@ -1,7 +1,8 @@
-module.exports = (app, svc, jwt) => {
+module.exports = (app, svc,svl, jwt) => {
     app.get("/utilisateur", async (req, res) => {
         res.json(await svc.dao.getAllutilisateur())
     })
+
     app.get("/utilisateur/:id", async (req, res) => {
         try {
             const utilisateur = await svc.dao.getById(req.params.id)
@@ -11,6 +12,7 @@ module.exports = (app, svc, jwt) => {
             return res.json(utilisateur)
         } catch (e) { res.status(400).end() }
     })
+
     app.post("/utilisateur", (req, res) => {
         const utilisateur = req.body
         if((utilisateur.id === undefined) || (utilisateur.id == null) || (!svc.isValideutilisateur(utilisateur))) {//crying alone jurrivh
@@ -23,13 +25,15 @@ module.exports = (app, svc, jwt) => {
                 res.status(500).end()
             })
     })
+
     app.post("/utilisateur/authentification", (req, res, jwt) => {
+        console.log(req.body)
         const {email, mdp} = req.body
         if ((email === undefined) || (mdp === undefined)) {
             res.status(400).end()
             return
         }
-        svc.validemdp(email, mdp)
+        svl.validemdp(email, mdp)
             .then(authenticated => {
                 if (!authenticated) {
                     res.status(401).end()
@@ -42,6 +46,7 @@ module.exports = (app, svc, jwt) => {
                 res.status(500).end()
             })
     })
+
     app.delete("/utilisateur/:id", async (req, res) => {
         const utilisateur = await svc.dao.getById(req.params.id)
         if (utilisateur === undefined) {
@@ -54,6 +59,7 @@ module.exports = (app, svc, jwt) => {
                 res.status(500).end()
             })
     })
+
     app.put("/utilisateur", async (req, res) => {
         const utilisateur= req.body
         console.log(utilisateur)
