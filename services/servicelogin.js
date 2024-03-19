@@ -6,7 +6,7 @@ module.exports = class UserAccountService {
     constructor(db) {
         this.dao = new UserAccountDAO(db)
     }
-    hashPassword(mdp) {
+    hashmdp(mdp) {
         return bcrypt.hashSync(mdp, 10)  // 10 : cost factor -> + élevé = hash + sûr
     }
 
@@ -14,12 +14,12 @@ module.exports = class UserAccountService {
         return this.dao.insert(new UserAccount(login, email, this.hashPassword(mdp)))
     }
 
-    comparePassword(mdp, hash) {
+    comparemdp(mdp, hash) {
         return bcrypt.compareSync(mdp, hash)
     }
 
     async validemdp(login, mdp) {
         const user = await this.dao.getByLogin(login.trim())
-        return this.comparePassword(mdp, user.challenge)
+        return this.comparemdp(mdp, user.challenge)
     }
 }

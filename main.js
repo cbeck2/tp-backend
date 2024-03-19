@@ -28,11 +28,6 @@ const servicemessage = new servicemess(db)
 require('./api/message')(app, servicemessage)
 require('./datamodel/message/messageseeder')(servicemessage)
 
-const servicemess = require("./services/servicemessage")
-const useraccount = new servicemess(db)
-require('./api/message')(app, useraccount)
-require('./datamodel/message/useraccountseeder')(useraccount)
-
 const serviceacti = require("./services/serviceactivite")
 const serviceactivite = new serviceacti(db)
 require('./api/activite')(app, serviceactivite)
