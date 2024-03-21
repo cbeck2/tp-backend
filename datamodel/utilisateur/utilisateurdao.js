@@ -1,4 +1,5 @@
 const BaseDAO = require('../basedao')
+const UserAccount = require("./utilisateur");
 
 module.exports = class utilisateurDAO extends BaseDAO {
     constructor(db) {
@@ -7,7 +8,7 @@ module.exports = class utilisateurDAO extends BaseDAO {
     insertutilisateur(utilisateur) {
         return new Promise((resolve, reject) =>
             this.db.query("INSERT INTO utilisateur(email,age,mdp,pseudo,pdp) VALUES($1,$2,$3,$4,$5)",
-                [utilisateur.email, utilisateur.age, utilisateur.mdp, utilisateur.pseudo, utilisateur.pdp])
+                [utilisateur.email, utilisateur.age, utilisateur.this.hashmdp(mdp), utilisateur.pseudo, utilisateur.pdp])
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
         // Exemple à modifier pour récupérer le dernier ID généré avec res.rows[0].id
@@ -21,7 +22,7 @@ module.exports = class utilisateurDAO extends BaseDAO {
     updateutilisateur(utilisateur) {
         return new Promise((resolve, reject) =>
             this.db.query("UPDATE utilisateur SET email=$2,age=$3,mdp=$4,pseudo=$5,pdp=$6 WHERE id=$1",
-                [utilisateur.id, utilisateur.email, utilisateur.age, utilisateur.mdp, utilisateur.pseudo, utilisateur.pdp])
+                [utilisateur.id, utilisateur.email, utilisateur.age, utilisateur.this.hashmdp(mdp), utilisateur.pseudo, utilisateur.pdp])
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
     }

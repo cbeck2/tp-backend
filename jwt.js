@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const jwtKey = 'exemple_cours_secret_key'
+const jwtKey = 'RainbowTrololost.Ex3'
 const jwtExpirySeconds = 3600
 
 module.exports = (userAccountService) => {

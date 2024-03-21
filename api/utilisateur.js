@@ -1,4 +1,4 @@
-module.exports = (app, svc,svl, jwt) => {
+module.exports = (app, svc, jwt) => {
     app.get("/utilisateur", async (req, res) => {
         res.json(await svc.dao.getAllutilisateur())
     })
@@ -33,7 +33,7 @@ module.exports = (app, svc,svl, jwt) => {
             res.status(400).end()
             return
         }
-        svl.validemdp(email, mdp)
+        svc.validemdp(email, mdp)
             .then(authenticated => {
                 if (!authenticated) {
                     res.status(401).end()
