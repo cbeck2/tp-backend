@@ -4,7 +4,6 @@ module.exports = (serviceutilisateur) => {
     return new Promise(async (resolve, reject) => {
         try {
             await serviceutilisateur.dao.createutilisateur()
-            // autres CREATE TABLE...
             for (let i = 0; i < 5; i++) {
                 await serviceutilisateur.dao.insertutilisateur(new utilisateur
                     ("melanoob@gmail.com"+i
@@ -15,7 +14,7 @@ module.exports = (serviceutilisateur) => {
                 )
             }
         } catch (e) {
-            if (e.code === "42P07") { // TABLE ALREADY EXISTS https://www.postgresql.org/docs/8.2/errcodes-appendix.html
+            if (e.code === "42P07") {
                 resolve()
             } else {
                 reject(e)
