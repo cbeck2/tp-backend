@@ -14,11 +14,11 @@ const connectionString = "postgres://user:azerty@localhost/PROJEEEET"
 const db = new pg.Pool({ connectionString: connectionString })
 
 
-const serviceacc = require("./services/useraccountservice")
-const serviceuaccount = new serviceacc(db)
-const jwt = require('./jwt')(serviceuaccount)
-require('./api/useraccount')(app, serviceuaccount,jwt)
-require('./datamodel/utilisateur/utilisateurseeder')(serviceuaccount)
+// const serviceacc = require("./services/useraccountservice")
+// const serviceuaccount = new serviceacc(db)
+// const jwt = require('./jwt')(serviceuaccount)
+// require('./api/useraccount')(app, serviceuaccount,jwt)
+// require('./datamodel/useraccount/useraccountseeder')(serviceuaccount)
 
 const serviceutil = require("./services/serviceutilisateur")
 const serviceutilisateur = new serviceutil(db)

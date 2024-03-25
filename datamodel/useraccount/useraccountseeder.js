@@ -3,7 +3,7 @@ const message = require('./useraccount')
 module.exports = (userAccountService) => {
     return new Promise(async (resolve, reject) => {
         try {
-            await userAccountService.dao.db.query("CREATE TABLE useraccount(id SERIAL PRIMARY KEY, login TEXT NOT NULL, challenge TEXT NOT NULL)")
+            await userAccountService.dao.createuseraccount()
         } catch (e) {
             if (e.code === "42P07") {
                 resolve()

@@ -1,6 +1,4 @@
-const bcrypt = require('bcrypt')
 const UserDAO = require("../datamodel/utilisateur/utilisateurdao");
-const UserAccount = require("../datamodel/utilisateur/utilisateur");
 module.exports = class Serviceutilisateur {
     constructor(db) {
         this.dao = new UserDAO(db)
