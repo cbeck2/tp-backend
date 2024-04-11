@@ -1,4 +1,4 @@
-module.exports = (app, svc) => {
+module.exports = (app, svc, jwt) => {
     app.get("/utilisateur", async (req, res) => {
         res.json(await svc.dao.getAllutilisateur())
     })
@@ -51,6 +51,27 @@ module.exports = (app, svc) => {
         }
         svc.dao.updateutilisateur(utilisateur)
             .then(_ => res.status(200).end())
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
+    })
+
+    app.post('/authentification', (req, res) => {
+        const { email, mdp } = req.body
+        // console.log(req.body)
+        if ((email === undefined) || (mdp === undefined)) {
+            res.status(400).end()
+            return
+        }
+        svc.validatePassword(email, mdp)
+            .then(authenticated => {
+                if (!authenticated) {
+                    res.status(401).end()
+                    return
+                }
+                res.json({'token': jwt.generateJWT(email)})
+            })
             .catch(e => {
                 console.log(e)
                 res.status(500).end()

@@ -1,10 +1,9 @@
 module.exports = class utilisateur {
-    constructor(email,age,mdp,pseudo,pdp,id=0) {
+    constructor(email,challenge,age,pseudo,id=0) {
         this.email = email
+        this.challenge = challenge
         this.age = age
-        this.mdp = mdp
         this.pseudo = pseudo
-        this.pdp = pdp
         this.id = id
     }
 }

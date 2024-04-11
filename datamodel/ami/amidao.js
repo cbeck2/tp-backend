@@ -29,8 +29,8 @@ module.exports = class ami extends BaseDAO {
         return new Promise((resolve, reject) =>
             this.db.query(`CREATE TABLE ${this.tablename}`+
                 "(id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY," +
-                "idutilisateur1 INT,"+
-                "idutilisateur2 INT,"+
+                "idutilisateur1 INT NOT NULL,"+
+                "idutilisateur2 INT NOT NULL,"+
                 "FOREIGN KEY (idutilisateur1) REFERENCES utilisateur(id),"+
                 "FOREIGN KEY (idutilisateur2) REFERENCES utilisateur(id))"
             )
