@@ -8,27 +8,20 @@ module.exports = class Serviceutilisateur {
     isValideutilisateur(utilisateur) {
         utilisateur.email = utilisateur.email.trim()
         if (utilisateur.email === "") {
-            return true
+            return "email"
         }
-        if (parseInt(utilisateur.age)===null) {
-            return false
+        if (Date.parse(utilisateur.datenaissance)===null) {
+            return "datenaissance"
         }
-        utilisateur.mdp = utilisateur.mdp.trim()
-        if (utilisateur.mdp === "") {
-            return false
+        utilisateur.password = utilisateur.password.trim()
+        if (utilisateur.password === "") {
+            return "password"
         }
         utilisateur.pseudo = utilisateur.pseudo.trim()
         if (utilisateur.pseudo === "") {
-            return false
+            return "pseudo"
         }
-        utilisateur.pdp = utilisateur.pdp.trim()
-        if (utilisateur.pdp === "") {
-            return false
-        }
-        if (parseInt(utilisateur.id)===null) {
-            return false
-        }
-        return true
+        return false
     }
 
     hashPassword(password) {

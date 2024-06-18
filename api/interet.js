@@ -35,7 +35,7 @@ module.exports = (app, svc) => {
                 res.status(500).end()
             })
     })
-    app.put("/interet", async (req, res) => {
+    /*app.put("/interet", async (req, res) => {
         console.log(req.body)
         const interet= req.body
         if ((interet.id === undefined) || (interet.id == null) || (!svc.isValideinteret(interet))) {
@@ -50,5 +50,5 @@ module.exports = (app, svc) => {
                 console.log(e)
                 res.status(500).end()
             })
-    })
+    })*/
 }

@@ -1,4 +1,3 @@
-const utilisateur = require('./utilisateur/utilisateur')
 const message = require('./message/message')
 const interet = require('./interet/interet')
 const ami = require('./ami/ami')
@@ -11,7 +10,7 @@ module.exports = (serviceutilisateur,servicemessage,serviceinteret,serviceami,se
                 "id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY,"+
                 "email TEXT NOT NULL,"+
                 "challenge TEXT NOT NULL,"+
-                "age NUMERIC NOT NULL,"+
+                "date DATE NOT NULL,"+
                 "pseudo TEXT NOT NULL)")
 
             await servicemessage.dao.db.query("CREATE TABLE message("+
@@ -54,7 +53,7 @@ module.exports = (serviceutilisateur,servicemessage,serviceinteret,serviceami,se
             await serviceutilisateur.insert(
                     "user"+i+"@example.com"
                     ,"trololost"
-                    ,i+20
+                    ,"2023-10-2"+i
                     ,"melanoob"+i
                 )
             await servicemessage.dao.insertmessage(new message
@@ -63,7 +62,7 @@ module.exports = (serviceutilisateur,servicemessage,serviceinteret,serviceami,se
                     ,i+0
                     ,"yoloooooo"+i
                     ,null
-                    ,/*date*/new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)))
+                    ,new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)))
                 )
             await serviceami.dao.insertami(new ami
                 (i+0,i+0)

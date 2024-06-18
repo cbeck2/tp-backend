@@ -2,6 +2,7 @@ module.exports = (app, svc) => {
     app.get("/ami", async (req, res) => {
         res.json(await svc.dao.getAllami())
     })
+
     app.get("/ami/:id", async (req, res) => {
         try {
             const ami = await svc.dao.getById(req.params.id)
@@ -11,6 +12,7 @@ module.exports = (app, svc) => {
             return res.json(ami)
         } catch (e) { res.status(400).end() }
     })
+
     app.post("/ami", (req, res) => {
         const ami = req.body
         if (!svc.isValideami(ami))  {//crying alone jurrivh
@@ -23,6 +25,7 @@ module.exports = (app, svc) => {
                 res.status(500).end()
             })
     })
+
     app.delete("/ami/:id", async (req, res) => {
         const ami = await svc.dao.getById(req.params.id)
         if (ami === undefined) {
@@ -35,6 +38,7 @@ module.exports = (app, svc) => {
                 res.status(500).end()
             })
     })
+    /*
     app.put("/ami", async (req, res) => {
         console.log(req.body)
         const ami= req.body
@@ -50,5 +54,5 @@ module.exports = (app, svc) => {
                 console.log(e)
                 res.status(500).end()
             })
-    })
+    })*/
 }

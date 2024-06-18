@@ -8,7 +8,7 @@ module.exports = class utilisateur extends BaseDAO {
 
     insertutilisateur(utilisateur) {
         return new Promise((resolve, reject) =>
-            this.db.query(`INSERT INTO ${this.tablename}`+"(email,challenge,age,pseudo) VALUES($1,$2,$3,$4)", [utilisateur.email,utilisateur.challenge, utilisateur.age, utilisateur.pseudo])
+            this.db.query(`INSERT INTO ${this.tablename}`+"(email,challenge,date,pseudo) VALUES($1,$2,$3,$4)", [utilisateur.email,utilisateur.challenge, utilisateur.datenaissance, utilisateur.pseudo])
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
     }
@@ -22,7 +22,7 @@ module.exports = class utilisateur extends BaseDAO {
 
     updateutilisateur(utilisateur) {
         return new Promise((resolve, reject) =>
-            this.db.query(`UPDATE ${this.tablename}`+" SET email=$2,age=$3,pseudo=$4 WHERE id=$1",
+            this.db.query(`UPDATE ${this.tablename}`+" SET email=$2,date=$3,pseudo=$4 WHERE id=$1",
                 [utilisateur.id, utilisateur.email, utilisateur.age, utilisateur.pseudo])
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))

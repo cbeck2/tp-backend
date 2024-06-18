@@ -1,8 +1,5 @@
+const utilisateur = require("../datamodel/utilisateur/utilisateur");
 module.exports = (app, svc, jwt) => {
-    app.get("/utilisateur", async (req, res) => {
-        res.json(await svc.dao.getAllutilisateur())
-    })
-
     app.get("/utilisateur/:id", async (req, res) => {
         try {
             const utilisateur = await svc.dao.getById(req.params.id)
@@ -15,10 +12,11 @@ module.exports = (app, svc, jwt) => {
 
     app.post("/utilisateur", (req, res) => {
         const utilisateur = req.body
-        if((utilisateur.id === undefined) || (utilisateur.id == null) || (!svc.isValideutilisateur(utilisateur))) {//crying alone jurrivh
+        if(!svc.isValideutilisateur(utilisateur)===false) {//crying alone jurrivh
+            console.log(svc.isValideutilisateur(utilisateur))
             return res.status(400).end()
         }
-        svc.dao.insertutilisateur(utilisateur)
+        svc.insert(utilisateur.email,utilisateur.password,utilisateur.datenaissance,utilisateur.pseudo)
             .then(_ => res.status(200).end())
             .catch(e => {
                 console.log(e)
@@ -26,27 +24,13 @@ module.exports = (app, svc, jwt) => {
             })
     })
 
-    app.delete("/utilisateur/:id", async (req, res) => {
-        const utilisateur = await svc.dao.getById(req.params.id)
-        if (utilisateur === undefined) {
-            return res.status(404).end()
-        }
-        svc.dao.delete(req.params.id)
-            .then(_ => res.status(200).end())
-            .catch(e => {
-                console.log(e)
-                res.status(500).end()
-            })
-    })
-
-    app.put("/utilisateur", async (req, res) => {
+    app.put("/utilisateur",   (req, res) => {
         const utilisateur= req.body
-        console.log(utilisateur)
         if ((!svc.isValideutilisateur(utilisateur)))
         {
             return res.status(400).end()
         }
-        if (await svc.dao.getById(utilisateur.id) === undefined) {
+        if (svc.dao.getById(utilisateur.id) === undefined) {
             return res.status(404).end()
         }
         svc.dao.updateutilisateur(utilisateur)
@@ -57,7 +41,7 @@ module.exports = (app, svc, jwt) => {
             })
     })
 
-    app.post('/authentification', (req, res) => {
+    app.post('/authentification', async (req, res) => {
         const { email, mdp } = req.body
         // console.log(req.body)
         if ((email === undefined) || (mdp === undefined)) {
