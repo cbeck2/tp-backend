@@ -12,9 +12,11 @@ module.exports = class ami extends BaseDAO {
                 .catch(e => reject(e)))
         // Exemple à modifier pour récupérer le dernier ID généré avec res.rows[0].id
     }
-    getAllami() {
+    getami(id) {
         return new Promise((resolve, reject) =>
-            this.db.query("SELECT * FROM ami ORDER BY id")
+            this.db.query(`SELECT /*idutilisateur1 AND idutilisateur2*/* FROM ${this.tablename} WHERE idutilisateur1=$1 OR idutilisateur2=$1`,
+                [id])
+
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
     }

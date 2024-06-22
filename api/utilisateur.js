@@ -2,7 +2,7 @@ const utilisateur = require("../datamodel/utilisateur/utilisateur");
 module.exports = (app, svc, jwt) => {
     app.get("/utilisateur/:id", async (req, res) => {
         try {
-            const utilisateur = await svc.dao.getById(req.params.id)
+            const utilisateur = await svc.dao.getutilisateurbyid(req.params.id)
             if (utilisateur === undefined) {
                 return res.status(404).end()
             }
@@ -12,6 +12,7 @@ module.exports = (app, svc, jwt) => {
 
     app.post("/utilisateur", (req, res) => {
         const utilisateur = req.body
+        console.log(req.body.password)
         if(!svc.isValideutilisateur(utilisateur)===false) {//crying alone jurrivh
             console.log(svc.isValideutilisateur(utilisateur))
             return res.status(400).end()
@@ -43,7 +44,6 @@ module.exports = (app, svc, jwt) => {
 
     app.post('/authentification', async (req, res) => {
         const { email, mdp } = req.body
-        // console.log(req.body)
         if ((email === undefined) || (mdp === undefined)) {
             res.status(400).end()
             return

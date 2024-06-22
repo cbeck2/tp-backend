@@ -8,14 +8,16 @@ module.exports = class utilisateur extends BaseDAO {
 
     insertutilisateur(utilisateur) {
         return new Promise((resolve, reject) =>
-            this.db.query(`INSERT INTO ${this.tablename}`+"(email,challenge,date,pseudo) VALUES($1,$2,$3,$4)", [utilisateur.email,utilisateur.challenge, utilisateur.datenaissance, utilisateur.pseudo])
+            this.db.query(`INSERT INTO ${this.tablename}`+"(email,challenge,date,pseudo) VALUES($1,$2,$3,$4)",
+                [utilisateur.email,utilisateur.challenge, utilisateur.datenaissance, utilisateur.pseudo])
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
     }
 
-    getAllutilisateur() {
+    getutilisateurbyid(id) {
         return new Promise((resolve, reject) =>
-            this.db.query(`SELECT * FROM ${this.tablename}`+" ORDER BY id")
+            this.db.query(`SELECT pseudo FROM ${this.tablename} WHERE id=$1`,
+                [id])
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
     }

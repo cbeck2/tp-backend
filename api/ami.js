@@ -1,11 +1,7 @@
 module.exports = (app, svc) => {
-    app.get("/ami", async (req, res) => {
-        res.json(await svc.dao.getAllami())
-    })
-
     app.get("/ami/:id", async (req, res) => {
         try {
-            const ami = await svc.dao.getById(req.params.id)
+            const ami = await svc.dao.getami(req.params.id)
             if (ami === undefined) {
                 return res.status(404).end()
             }
