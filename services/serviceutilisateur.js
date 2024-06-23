@@ -29,7 +29,7 @@ module.exports = class Serviceutilisateur {
     }
 
     async validatePassword(email, password) {
-        const user = await this.dao.getByLogin(email.trim())
+        const user = await this.dao.getByEmail(email.trim())
         return this.comparePassword(password, user.challenge)
     }
 

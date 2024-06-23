@@ -30,10 +30,10 @@ module.exports = class utilisateur extends BaseDAO {
                 .catch(e => reject(e)))
     }
 
-    getByLogin(login) {
+    getByEmail(email) {
         return new Promise((resolve, reject) =>
-            this.db.query(`SELECT * FROM ${this.tablename}`+" WHERE email=$1", [login])
-                .then(res => resolve(res.rows[0]) )
+            this.db.query(`SELECT * FROM ${this.tablename}`+" WHERE email=$1", [email])
+                .then(res => resolve(res.rows[0]))
                 .catch(e => reject(e)))
     }
 }

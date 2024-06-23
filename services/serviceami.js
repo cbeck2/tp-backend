@@ -4,11 +4,13 @@ module.exports = class Serviceami {
     constructor(db) {
         this.dao = new ExempleDAO(db)
     }
-    isValideami(ami) {
-        if (parseInt(ami.idutilisateur1)===null) {
+    async isValideami(ami) {
+        //let idutilisateur1 = svc.getByLogin(ami.idutilisateur1)
+        ami=await this.dao.getByLogin(ami.idutilisateur1)
+        if (parseInt(ami.id)==null) {
             return false
         }
-        if (parseInt(ami.idutilisateur2)===null) {
+        if (parseInt(ami.idutilisateur2)==null) {
             return false
         }
         return true

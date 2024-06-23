@@ -65,7 +65,7 @@ module.exports = (serviceutilisateur,servicemessage,serviceinteret,serviceami,se
                     ,new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)))
                 )
             await serviceami.dao.insertami(new ami
-                (i+0,i+0)
+                (i,i)
                 )
             await serviceactivite.dao.insertactivite(new activite
                 ("coder"+i)

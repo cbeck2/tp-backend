@@ -4,6 +4,27 @@ const jwtExpirySeconds = 3600
 
 module.exports = (userAccountService) => {
     return {
+        /*  getpseudo(req,res){
+            if (req.headers.authorization === undefined) {
+                res.status(401).end()
+                return
+            }
+            const token = req.headers.authorization.split(" ")[1];
+            jws.decode(token,)
+
+
+            console.log(decoded);
+
+             // prints:
+             // * {
+             // *   foo: "bar",
+             // *   exp: 1393286893,
+             // *   iat: 1393268893
+             // * }
+
+            // decode header by passing in options (useful for when you need `kid` to verify a JWT):
+            const decodedHeader = jwtDecode(token, { header: true });
+        },*/
         validateJWT(req, res, next) {
             if (req.headers.authorization === undefined) {
                 res.status(401).end()
@@ -15,9 +36,8 @@ module.exports = (userAccountService) => {
                     res.status(401).end()
                     return
                 }
-                console.log(user)
                 try {
-                    req.user = await userAccountService.dao.getByLogin(user.login)
+                    req.user = await userAccountService.dao.getByEmail(user.login)
                     return next()
                 } catch(e) {
                     console.log(e)

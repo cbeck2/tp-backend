@@ -1,5 +1,8 @@
-module.exports = (app, svc) => {
-    app.get("/ami/:id", async (req, res) => {
+require("../jwt.js")
+const jwt2 = require('jsonwebtoken')
+module.exports = (app, svc, jwt) => {
+    app.get("/ami", async (req, res) => {
+        console.log(req)
         try {
             const ami = await svc.dao.getami(req.params.id)
             if (ami === undefined) {
@@ -9,8 +12,9 @@ module.exports = (app, svc) => {
         } catch (e) { res.status(400).end() }
     })
 
-    app.post("/ami", (req, res) => {
-        const ami = req.body
+    app.post("/ami",jwt.validateJWT,(req, res) => {
+        let ami = req.body
+        ami.idutilisateur2 = req.user.id
         if (!svc.isValideami(ami))  {//crying alone jurrivh
             return res.status(400).end()
         }
@@ -21,7 +25,6 @@ module.exports = (app, svc) => {
                 res.status(500).end()
             })
     })
-
     app.delete("/ami/:id", async (req, res) => {
         const ami = await svc.dao.getById(req.params.id)
         if (ami === undefined) {

@@ -32,7 +32,7 @@ require('./api/interet')(app, serviceinteret)
 
 const serviceam = require("./services/serviceami")
 const serviceami = new serviceam(db)
-require('./api/ami')(app, serviceami)
+require('./api/ami')(app, serviceami, jwt)
 
 require('./datamodel/seeder')(serviceutilisateur,servicemessage,serviceinteret,serviceami,serviceactivite)
     .then(app.listen(3333))
