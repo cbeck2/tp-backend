@@ -5,21 +5,32 @@ module.exports = class ami extends BaseDAO {
         super(db,"ami")
     }
     async insertami(ami) {
-        ami.idutilisateur1 = await this.getByLogin(ami.idutilisateur1)
+        let id = await this.getByLogin(ami.idutilisateur1)
+        let id2 = await this.getByLogin(ami.idutilisateur2)
         return new Promise((resolve, reject) =>
-            this.db.query("INSERT INTO ami(idutilisateur1,idutilisateur2) VALUES($1,$2)",
-                [ami.idutilisateur1.id, ami.idutilisateur2])
+            this.db.query("INSERT INTO ami(idutilisateur1,idutilisateur2,pseudoutilisateur1,pseudoutilisateur2) VALUES($1,$2,$3,$4)",
+                [id.id, id2.id, ami.idutilisateur1, ami.idutilisateur2])
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
     }
-    getami(id) {
-        return new Promise((resolve, reject) =>
-            this.db.query(`SELECT /*idutilisateur1 AND idutilisateur2*/* FROM ${this.tablename} WHERE idutilisateur1=$1 OR idutilisateur2=$1`,
-                [id])
 
+    async insernewtami(ami) {
+        return new Promise((resolve, reject) =>
+            this.db.query("INSERT INTO ami(idutilisateur1,idutilisateur2,pseudoutilisateur1,pseudoutilisateur2) VALUES($1,$2,$3,$4)",
+                [ami.idutilisateur1, ami.idutilisateur2,ami.pseudoutilisateur1,ami.pseudoutilisateur2])
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
     }
+    async getami(id) {
+        let temp = await this.getByLogin(id)
+        id = temp.id
+        return new Promise((resolve, reject) =>
+            this.db.query(`SELECT /*idutilisateur1 AND idutilisateur2*/* FROM ${this.tablename} WHERE idutilisateur1 = $1 OR idutilisateur2 = $1`,
+                [id])
+                .then(res => resolve(res.rows))
+                .catch(e => reject(e)))
+    }
+
     /*updateami(ami) {
         return new Promise((resolve, reject) =>
             this.db.query("UPDATE ami SET idutilisateur1=$2,idutilisateur2=$3 WHERE id=$1",
@@ -43,6 +54,13 @@ module.exports = class ami extends BaseDAO {
         return new Promise(async (resolve, reject) =>
             await this.db.query(`SELECT id FROM utilisateur` + " WHERE pseudo=$1", [pseudo])
                 .then(res => resolve(res.rows[0]))
+                .catch(e => reject(e)))
+    }
+    getutilisateurbyid(id) {
+        return new Promise((resolve, reject) =>
+            this.db.query(`SELECT pseudo FROM ${this.tablename} WHERE id=$1`,
+                [id])
+                .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
     }
 }

@@ -12,7 +12,6 @@ module.exports = (app, svc, jwt) => {
 
     app.post("/utilisateur", (req, res) => {
         const utilisateur = req.body
-        console.log(req.body.password)
         if(!svc.isValideutilisateur(utilisateur)===false) {//crying alone jurrivh
             console.log(svc.isValideutilisateur(utilisateur))
             return res.status(400).end()

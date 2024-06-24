@@ -1,10 +1,10 @@
 require("../jwt.js")
-const jwt2 = require('jsonwebtoken')
+const jwt2 = require('jwt-decode')
 module.exports = (app, svc, jwt) => {
     app.get("/ami", async (req, res) => {
-        console.log(req)
+        let test=jwt2.jwtDecode(req.headers.authorization.slice(7))
         try {
-            const ami = await svc.dao.getami(req.params.id)
+            const ami = await svc.dao.getami(test.login)
             if (ami === undefined) {
                 return res.status(404).end()
             }
@@ -14,7 +14,8 @@ module.exports = (app, svc, jwt) => {
 
     app.post("/ami",jwt.validateJWT,(req, res) => {
         let ami = req.body
-        ami.idutilisateur2 = req.user.id
+        let test=jwt2.jwtDecode(req.headers.authorization.slice(7))
+        ami.idutilisateur2 = test.login
         if (!svc.isValideami(ami))  {//crying alone jurrivh
             return res.status(400).end()
         }
