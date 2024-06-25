@@ -1,7 +1,5 @@
 const message = require('./message/message')
-const interet = require('./interet/interet')
 const ami = require('./ami/ami')
-const activite = require('./activite/activite')
 
 module.exports = (serviceutilisateur,servicemessage,serviceami/*,serviceinteret,serviceactivite*/) => {
     return new Promise(async (resolve, reject) => {
@@ -73,8 +71,8 @@ module.exports = (serviceutilisateur,servicemessage,serviceami/*,serviceinteret,
                 )
             await servicemessage.dao.insertmessage(new message
                 (
-                    i+0
-                    ,i+0
+                    i
+                    ,i
                     ,"yoloooooo"+i
                     ,"melanoob"+i
                     ,"melanoob"+i
