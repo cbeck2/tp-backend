@@ -3,6 +3,8 @@ const jwt2 = require('jwt-decode')
 module.exports = (app, svc, jwt) => {
     app.get("/ami", async (req, res) => {
         let test=jwt2.jwtDecode(req.headers.authorization.slice(7))
+        test.login= await svc.dao.getbyemail(test.login)
+        test.login=test.login[0].pseudo
         try {
             const ami = await svc.dao.getami(test.login)
             if (ami === undefined) {
@@ -12,11 +14,13 @@ module.exports = (app, svc, jwt) => {
         } catch (e) { res.status(400).end() }
     })
 
-    app.post("/ami",jwt.validateJWT,(req, res) => {
+    app.post("/ami",jwt.validateJWT,async (req, res) => {
         let ami = req.body
-        let test=jwt2.jwtDecode(req.headers.authorization.slice(7))
+        let test = jwt2.jwtDecode(req.headers.authorization.slice(7))
+        test.login = await svc.dao.getbyemail(test.login)
+        test.login = test.login[0].pseudo
         ami.idutilisateur2 = test.login
-        if (!svc.isValideami(ami))  {//crying alone jurrivh
+        if (!svc.isValideami(ami)) {//crying alone jurrivh
             return res.status(400).end()
         }
         svc.dao.insertami(ami)

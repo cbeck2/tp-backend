@@ -38,4 +38,11 @@ module.exports = class message extends BaseDAO {
                 .then(res => resolve(res.rows[0]))
                 .catch(e => reject(e)))
     }
+    getbyemail(email) {
+        return new Promise((resolve, reject) =>
+            this.db.query(`SELECT pseudo FROM utilisateur WHERE email=$1`,
+                [email])
+                .then(res => resolve(res.rows))
+                .catch(e => reject(e)))
+    }
 }
