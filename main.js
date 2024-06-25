@@ -22,17 +22,17 @@ const servicemess = require("./services/servicemessage")
 const servicemessage = new servicemess(db)
 require('./api/message')(app, servicemessage)
 
-const serviceacti = require("./services/serviceactivite")
+const serviceam = require("./services/serviceami")
+const serviceami = new serviceam(db)
+require('./api/ami')(app, serviceami, jwt)
+
+/*const serviceacti = require("./services/serviceactivite")
 const serviceactivite = new serviceacti(db)
 require('./api/activite')(app, serviceactivite)
 
 const serviceinte = require("./services/serviceinteret")
 const serviceinteret = new serviceinte(db)
-require('./api/interet')(app, serviceinteret)
+require('./api/interet')(app, serviceinteret)*/
 
-const serviceam = require("./services/serviceami")
-const serviceami = new serviceam(db)
-require('./api/ami')(app, serviceami, jwt)
-
-require('./datamodel/seeder')(serviceutilisateur,servicemessage,serviceinteret,serviceami,serviceactivite)
+require('./datamodel/seeder')(serviceutilisateur,servicemessage/*,serviceinteret,serviceactivite*/,serviceami)
     .then(app.listen(3333))

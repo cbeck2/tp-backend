@@ -3,15 +3,18 @@ const interet = require('./interet/interet')
 const ami = require('./ami/ami')
 const activite = require('./activite/activite')
 
-module.exports = (serviceutilisateur,servicemessage,serviceinteret,serviceami,serviceactivite) => {
+module.exports = (serviceutilisateur,servicemessage,serviceami/*,serviceinteret,serviceactivite*/) => {
     return new Promise(async (resolve, reject) => {
         try {
-            await serviceutilisateur.dao.db.query("CREATE TABLE utilisateur("+
-                "id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY,"+
-                "email TEXT NOT NULL,"+
-                "challenge TEXT NOT NULL,"+
-                "date DATE NOT NULL,"+
-                "pseudo TEXT NOT NULL UNIQUE )")
+            await serviceutilisateur.dao.db.query(
+                "CREATE TABLE utilisateur("+
+                    "id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY,"+
+                    "email TEXT NOT NULL UNIQUE,"+
+                    "challenge TEXT NOT NULL,"+
+                    "date DATE NOT NULL,"+
+                    "pseudo TEXT NOT NULL UNIQUE " +
+                ")"
+            )
 
             await servicemessage.dao.db.query(
                 "CREATE TABLE message("+
@@ -42,7 +45,7 @@ module.exports = (serviceutilisateur,servicemessage,serviceinteret,serviceami,se
                 ")"
             )
 
-            await serviceactivite.dao.db.query("CREATE TABLE activite("+
+            /*await serviceactivite.dao.db.query("CREATE TABLE activite("+
                 "id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY,"+
                 "nom TEXT NOT NULL)")
 
@@ -51,7 +54,7 @@ module.exports = (serviceutilisateur,servicemessage,serviceinteret,serviceami,se
                 "idutilisateur INT NOT NULL,"+
                 "idactivite INT NOT NULL,"+
                 "FOREIGN KEY (idutilisateur) REFERENCES utilisateur(id),"+
-                "FOREIGN KEY (idactivite) REFERENCES activite(id))")
+                "FOREIGN KEY (idactivite) REFERENCES activite(id))")*/
 
         } catch (e) {
             if (e.code === "42P07") {
@@ -81,12 +84,12 @@ module.exports = (serviceutilisateur,servicemessage,serviceinteret,serviceami,se
                 (
                     i,i,"melanoob"+i,"melanoob"+i)
                 )
-            await serviceactivite.dao.insertactivite(new activite
+            /*await serviceactivite.dao.insertactivite(new activite
                 ("coder"+i)
             )
             await serviceinteret.dao.insertinteret(new interet
                 (i+0,i+0)
-            )
+            )*/
         }
     })
 }

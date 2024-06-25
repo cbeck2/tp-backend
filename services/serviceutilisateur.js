@@ -1,6 +1,7 @@
 const UserDAO = require("../datamodel/utilisateur/utilisateurdao");
 const bcrypt = require("bcrypt");
 const utilisateur = require("../datamodel/utilisateur/utilisateur");
+const salt = 11
 module.exports = class Serviceutilisateur {
     constructor(db) {
         this.dao = new UserDAO(db)
@@ -25,7 +26,7 @@ module.exports = class Serviceutilisateur {
     }
 
     hashPassword(password) {
-        return bcrypt.hashSync(password, 11)  // 11(premier) : cost factor -> + élevé = hash + sûr & + long
+        return bcrypt.hashSync(password, salt)  // 11(premier) : cost factor -> + élevé = hash + sûr & + long
     }
 
     async validatePassword(email, password) {
