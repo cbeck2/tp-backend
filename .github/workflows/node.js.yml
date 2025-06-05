@@ -31,4 +31,4 @@ jobs:
             **/.git*
             **/.git*/**
             **/back/docker-compose.yml
-          server-dir: #To change
+          server-dir: */project-back/
