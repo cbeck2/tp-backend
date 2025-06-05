@@ -25,7 +25,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: bolletje.o2switch.net
-          username: wuhi0042
+          username: cbeck2
           password: ${{ secrets.ftp_password }}
           exclude: |
             **/.git*
