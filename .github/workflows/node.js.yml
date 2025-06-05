@@ -24,7 +24,7 @@ jobs:
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: bolletje.o2switch.net
+          server: 198.7.123.217
           username: cbeck2
           password: ${{ secrets.ftp_password }}
           exclude: |
