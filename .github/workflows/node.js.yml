@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          cache-dependency-path: ./back/package-lock.json
+          cache-dependency-path: ./package-lock.json
       - name: run install
         working-directory: .
         run: npm install --production
@@ -31,5 +31,4 @@ jobs:
           exclude: |
             **/.git*
             **/.git*/**
-            **/back/docker-compose.yml
           server-dir: ./project-back/
