@@ -15,7 +15,7 @@ jobs:
       - name: 🚚 Install dependencies
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
           cache-dependency-path: ./package-lock.json
       - name: run install
