@@ -10,7 +10,7 @@ app.use(bodyParser.json()) // application/json
 app.use(cors())
 app.use(morgan('dev')); // toutes les requêtes HTTP dans le log du serveur
 
-const connectionString = "postgres://user:azerty@localhost/PROJEEEET"
+const connectionString = "postgres://discorde:2QyQ8^h&&s*p@aXd@localhost/discorde"
 const db = new pg.Pool({ connectionString: connectionString })
 
 const serviceutil = require("./services/serviceutilisateur")
