@@ -13,13 +13,16 @@ const corsOptions = {
         } else {
             callback(new Error('Not allowed by CORS'));
         }
-    }
+    },
+    credentials: true
 };
 
-app.use(bodyParser.urlencoded({ extended: false })) // URLEncoded form data
-app.use(bodyParser.json()) // application/json
 app.use(cors(corsOptions))
-app.use(morgan('dev')); // toutes les requêtes HTTP dans le log du serveur
+app.options('*', cors(corsOptions))
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(morgan('dev'));
 
 const connectionString = "postgres://discorde:2QyQ8^h&&s*p@aXd@localhost/discorde"
 const db = new pg.Pool({ connectionString: connectionString })
