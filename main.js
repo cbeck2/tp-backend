@@ -3,11 +3,22 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-
 const app = express()
+
+const whitelist = ['http://discorde.cloud'];
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (!origin || whitelist.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+};
+
 app.use(bodyParser.urlencoded({ extended: false })) // URLEncoded form data
 app.use(bodyParser.json()) // application/json
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(morgan('dev')); // toutes les requêtes HTTP dans le log du serveur
 
 const connectionString = "postgres://discorde:2QyQ8^h&&s*p@aXd@localhost/discorde"
