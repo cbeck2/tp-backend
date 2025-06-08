@@ -4,15 +4,10 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 
-const corsOptions = {
-  origin: 'http://discorde.cloud',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type']
-};
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false })) // URLEncoded form data
 app.use(bodyParser.json()) // application/json
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(morgan('dev')); // toutes les requêtes HTTP dans le log du serveur
 
 const connectionString = "postgres://discorde:2QyQ8^h&&s*p@aXd@localhost/discorde"
