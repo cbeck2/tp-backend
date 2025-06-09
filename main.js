@@ -5,7 +5,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const app = express()
 
-const whitelist = ['http://discorde.cloud'];
+const whitelist = ['http://discorde.cloud', 'http://www.discorde.cloud'];
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || whitelist.includes(origin)) {
