@@ -41,7 +41,7 @@ module.exports = (app, svc, jwt) => {
             })
     })
 
-    app.post('/authentification', async (req, res) => {
+    app.post('/api/authentification', async (req, res) => {
         const { email, mdp } = req.body
         if ((email === undefined) || (mdp === undefined)) {
             res.status(400).end()
