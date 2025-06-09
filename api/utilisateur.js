@@ -1,6 +1,6 @@
 const utilisateur = require("../datamodel/utilisateur/utilisateur");
 module.exports = (app, svc, jwt) => {
-    app.get("/utilisateur/:id", async (req, res) => {
+    app.get("api/utilisateur/:id", async (req, res) => {
         try {
             const utilisateur = await svc.dao.getutilisateurbyid(req.params.id)
             if (utilisateur === undefined) {
@@ -10,7 +10,7 @@ module.exports = (app, svc, jwt) => {
         } catch (e) { res.status(400).end() }
     })
 
-    app.post("/utilisateur", (req, res) => {
+    app.post("api/utilisateur", (req, res) => {
         const utilisateur = req.body
         if(!svc.isValideutilisateur(utilisateur)===false) {//crying alone jurrivh
             console.log(svc.isValideutilisateur(utilisateur))
@@ -24,7 +24,7 @@ module.exports = (app, svc, jwt) => {
             })
     })
 
-    app.put("/utilisateur",   (req, res) => {
+    app.put("api/utilisateur",   (req, res) => {
         const utilisateur= req.body
         if ((!svc.isValideutilisateur(utilisateur)))
         {
