@@ -2,7 +2,7 @@ module.exports = (app, svc) => {
     app.get("/interet", async (req, res) => {
         res.json(await svc.dao.getAllinteret())
     })
-    app.get("/interet/:id", async (req, res) => {
+    app.get("/api/interet/:id", async (req, res) => {
         try {
             const interet = await svc.dao.getById(req.params.id)
             if (interet === undefined) {
@@ -11,7 +11,7 @@ module.exports = (app, svc) => {
             return res.json(interet)
         } catch (e) { res.status(400).end() }
     })
-    app.post("/interet", (req, res) => {
+    app.post("/api/interet", (req, res) => {
         const interet = req.body
         if (!svc.isValideinteret(interet))  {//crying alone jurrivh
             return res.status(400).end()
@@ -23,7 +23,7 @@ module.exports = (app, svc) => {
                 res.status(500).end()
             })
     })
-    app.delete("/interet/:id", async (req, res) => {
+    app.delete("/api/interet/:id", async (req, res) => {
         const interet = await svc.dao.getById(req.params.id)
         if (interet === undefined) {
             return res.status(404).end()
