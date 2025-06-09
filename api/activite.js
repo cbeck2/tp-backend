@@ -4,7 +4,7 @@ module.exports = (app, svc) => {
         res.json(await svc.dao.getAllactivite())
     })
 
-    app.get("/activite/:id", async (req, res) => {
+    app.get("/api/activite/:id", async (req, res) => {
         try {
             const activite = await svc.dao.getById(req.params.id)
             if (activite === undefined) {
@@ -14,7 +14,7 @@ module.exports = (app, svc) => {
         } catch (e) { res.status(400).end() }
     })
 
-    app.post("/activite", (req, res) => {
+    app.post("/api/activite", (req, res) => {
         const activite = req.body
         if (!svc.isValideactivite(activite))  {
             return res.status(400).end()
@@ -27,7 +27,7 @@ module.exports = (app, svc) => {
             })
     })
 
-    app.put("/activite", async (req, res) => {
+    app.put("/api/activite", async (req, res) => {
         console.log(req.body)
         const activite= req.body
         if ((activite.id === undefined) || (activite.id == null) || (!svc.isValideactivite(activite))) {
