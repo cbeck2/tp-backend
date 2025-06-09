@@ -1,7 +1,7 @@
 require("../jwt.js")
 const jwt2 = require('jwt-decode')
 module.exports = (app, svc, jwt) => {
-    app.get("/ami", async (req, res) => {
+    app.get("/api/ami", async (req, res) => {
         let test=jwt2.jwtDecode(req.headers.authorization.slice(7))
         test.login= await svc.dao.getbyemail(test.login)
         test.login=test.login[0].pseudo
@@ -14,7 +14,7 @@ module.exports = (app, svc, jwt) => {
         } catch (e) { res.status(400).end() }
     })
 
-    app.post("/ami",jwt.validateJWT,async (req, res) => {
+    app.post("/api/ami",jwt.validateJWT,async (req, res) => {
         let ami = req.body
         let test = jwt2.jwtDecode(req.headers.authorization.slice(7))
         test.login = await svc.dao.getbyemail(test.login)
@@ -30,7 +30,7 @@ module.exports = (app, svc, jwt) => {
                 res.status(500).end()
             })
     })
-    app.delete("/ami/:id", async (req, res) => {
+    app.delete("/api/ami/:id", async (req, res) => {
         const ami = await svc.dao.getById(req.params.id)
         if (ami === undefined) {
             return res.status(404).end()
