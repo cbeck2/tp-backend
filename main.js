@@ -1,23 +1,9 @@
 const pg = require('pg')
 const express = require('express')
 const bodyParser = require('body-parser')
-const cors = require('cors')
 const morgan = require('morgan')
 const app = express()
 
-const whitelist = ['http://discorde.cloud', 'http://www.discorde.cloud'];
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || whitelist.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true
-};
-
-app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
