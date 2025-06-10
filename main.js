@@ -1,4 +1,5 @@
 const pg = require('pg')
+require('dotenv').config();
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
@@ -9,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(morgan('dev'));
 
-const connectionString = "postgres://discorde:2QyQ8^h&&s*p@aXd@localhost/discorde"
+const connectionString = process.env.DATABASE_URL
 const db = new pg.Pool({ connectionString: connectionString })
 
 const serviceutil = require("./services/serviceutilisateur")
