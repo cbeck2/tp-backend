@@ -1,5 +1,5 @@
-const pg = require('pg')
 require('dotenv').config();
+const pg = require('pg')
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
