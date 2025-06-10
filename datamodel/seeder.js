@@ -69,6 +69,7 @@ module.exports = (serviceutilisateur,servicemessage,serviceami/*,serviceinteret,
                     ,"2000-10-2"+i
                     ,"melanoob"+i
                 )
+            
             await servicemessage.dao.insertmessage(new message
                 (
                     i
